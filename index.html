@@ -8,6 +8,28 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <section id="controls">
+      <button id="btn-new-book-dia-open" onclick="showModal()">Add book</button>
+    </section>
+    <dialog id="dia-new-book">
+      <p>Add new book</p>
+      <form method="dialog" id="form-new-book">
+        <input
+          type="text"
+          name="title"
+          id="new-book-title"
+          placeholder="To Kill a Mockingbird"
+        />
+        <input
+          type="text"
+          name="author"
+          id="new-book-author"
+          placeholder="Harper Lee"
+        />
+        <input type="text" name="pages" id="new-book-pages" placeholder="323" />
+        <button id="btn-new-book-confirm">OK</button>
+      </form>
+    </dialog>
     <main></main>
   </body>
 </html>
