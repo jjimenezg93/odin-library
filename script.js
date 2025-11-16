@@ -32,6 +32,14 @@ function addBookToLibrary(book) {
   displayBooks();
 }
 
+function removeBook(bookId) {
+  library.splice(
+    library.findIndex((book) => book.id === bookId),
+    1
+  );
+  displayBooks();
+}
+
 addBookToLibrary(new Book("To Kill a Mockingbird", "Harper Lee", 323));
 addBookToLibrary(new Book("The Fellowship of the Ring", "J.R.R. Tolkien", 398));
 addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279));
@@ -42,6 +50,7 @@ function displayBooks() {
   library.forEach((book) => {
     let bookCard = document.createElement("article");
     bookCard.classList.add("book-card");
+    bookCard.setAttribute("data-book-id", book.id);
 
     let bookTitle = document.createElement("h1");
     bookTitle.textContent = book.title;
@@ -49,8 +58,14 @@ function displayBooks() {
     bookAuthor.textContent = book.author;
     let bookPages = document.createElement("p");
     bookPages.textContent = book.pages;
+    let bookDeleteBtn = document.createElement("button");
+    bookDeleteBtn.classList.add("btn-delete-book");
+    bookDeleteBtn.textContent = "-";
+    bookDeleteBtn.addEventListener("click", function () {
+      removeBook(book.id);
+    });
 
-    bookCard.append(bookTitle, bookAuthor, bookPages);
+    bookCard.append(bookTitle, bookAuthor, bookPages, bookDeleteBtn);
 
     mainElem.appendChild(bookCard);
   });

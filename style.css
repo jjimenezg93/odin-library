@@ -96,3 +96,15 @@ dialog {
 dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.btn-delete-book {
+  background-color: red;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 2px 5px;
+}
+
+.btn-delete-book:hover {
+  background-color: brown;
+}
