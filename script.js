@@ -25,8 +25,7 @@ let inputAuthor = document.getElementById("new-book-author");
 let inputPages = document.getElementById("new-book-pages");
 
 function addBookToLibrary(book) {
-  if (!book)
-  {
+  if (!book) {
     return;
   }
   library.push(book);
@@ -58,24 +57,6 @@ function displayBooks() {
 }
 
 let btnNewBookConfirm = document.getElementById("btn-new-book-confirm");
-// btnNewBookConfirm.addEventListener("click", (event) => {
-//   event.preventDefault(); // Don't submit the fake form
-
-//   const formData = {};
-//   new FormData(formNewBook).forEach((value, key) => {
-//     formData[key] = value;
-//   });
-//   if (!author)
-//   {
-//     return;
-//   }
-//   // author.formNoValidate = true;
-
-//   addBookToLibrary(formData.title, formData.author, formData.pages);
-//   displayBooks();
-//   diaNewBook.close();
-//   diaNewBook.style.display = "none";
-// });
 
 formNewBook.addEventListener("submit", (event) => {
   let isFormValid =
@@ -86,6 +67,7 @@ formNewBook.addEventListener("submit", (event) => {
     event.preventDefault();
     return;
   }
+  closeModal();
   let newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value);
   const bookExists = library.some((book) => {
     return book.equals(newBook);
@@ -96,14 +78,18 @@ formNewBook.addEventListener("submit", (event) => {
   addBookToLibrary(newBook);
 });
 
+function closeModal() {
+  diaNewBook.close();
+  diaNewBook.style.display = "none";
+}
+
 function showModal() {
   diaNewBook.showModal();
   diaNewBook.style.display = "grid";
 }
 
-// Close modal when clicking anywhere else
 window.onclick = function (event) {
   if (event.target == diaNewBook) {
-    diaNewBook.style.display = "none";
+    closeModal();
   }
 };
