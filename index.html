@@ -20,6 +20,7 @@
           name="title"
           id="new-book-title"
           placeholder="To Kill a Mockingbird"
+          maxlength="80"
           required
           autofocus
         />
@@ -29,6 +30,7 @@
           name="author"
           id="new-book-author"
           placeholder="Harper Lee"
+          maxlength="40"
           required
         />
         <label for="new-book-pages">Pages:</label>
@@ -37,6 +39,8 @@
           name="pages"
           id="new-book-pages"
           placeholder="323"
+          min=1
+          max=20000
           required
         />
         <button id="btn-new-book-confirm">OK</button>

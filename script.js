@@ -7,16 +7,35 @@ function Book(title, author, pages) {
   this.id = crypto.randomUUID();
 }
 
+Book.prototype.equals = function (other) {
+  if (Object.getPrototypeOf(this) !== Object.getPrototypeOf(other)) {
+    return false;
+  }
+  return (
+    this.title == other.title &&
+    this.author == other.author &&
+    this.pages == other.pages
+  );
+};
+
 let diaNewBook = document.getElementById("dia-new-book");
 let formNewBook = document.getElementById("form-new-book");
+let inputTitle = document.getElementById("new-book-title");
+let inputAuthor = document.getElementById("new-book-author");
+let inputPages = document.getElementById("new-book-pages");
 
-function addBookToLibrary(title, author, pages) {
-  library.push(new Book(title, author, pages));
+function addBookToLibrary(book) {
+  if (!book)
+  {
+    return;
+  }
+  library.push(book);
+  displayBooks();
 }
 
-addBookToLibrary("To Kill a Mockingbird", "Harper Lee", 323);
-addBookToLibrary("The Fellowship of the Ring", "J.R.R. Tolkien", 398);
-addBookToLibrary("Pride and Prejudice", "Jane Austen", 279);
+addBookToLibrary(new Book("To Kill a Mockingbird", "Harper Lee", 323));
+addBookToLibrary(new Book("The Fellowship of the Ring", "J.R.R. Tolkien", 398));
+addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279));
 
 function displayBooks() {
   let mainElem = document.querySelector("main");
@@ -38,23 +57,43 @@ function displayBooks() {
   });
 }
 
-displayBooks();
-
 let btnNewBookConfirm = document.getElementById("btn-new-book-confirm");
-btnNewBookConfirm.addEventListener("click", (event) => {
-  // event.preventDefault(); // Don't submit the fake form
+// btnNewBookConfirm.addEventListener("click", (event) => {
+//   event.preventDefault(); // Don't submit the fake form
 
-  const formData = {};
-  new FormData(formNewBook).forEach((value, key) => {
-    formData[key] = value;
+//   const formData = {};
+//   new FormData(formNewBook).forEach((value, key) => {
+//     formData[key] = value;
+//   });
+//   if (!author)
+//   {
+//     return;
+//   }
+//   // author.formNoValidate = true;
+
+//   addBookToLibrary(formData.title, formData.author, formData.pages);
+//   displayBooks();
+//   diaNewBook.close();
+//   diaNewBook.style.display = "none";
+// });
+
+formNewBook.addEventListener("submit", (event) => {
+  let isFormValid =
+    inputTitle.validity.valid &&
+    inputAuthor.validity.valid &&
+    inputPages.validity.valid;
+  if (!isFormValid) {
+    event.preventDefault();
+    return;
+  }
+  let newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value);
+  const bookExists = library.some((book) => {
+    return book.equals(newBook);
   });
-  let author = document.getElementById("new-book-author");
-  // author.formNoValidate = true;
-
-  addBookToLibrary(formData.title, formData.author, formData.pages);
-  displayBooks();
-  diaNewBook.close();
-  diaNewBook.style.display = "none";
+  if (bookExists) {
+    return;
+  }
+  addBookToLibrary(newBook);
 });
 
 function showModal() {
