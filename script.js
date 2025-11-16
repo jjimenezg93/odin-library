@@ -4,8 +4,14 @@ function Book(title, author, pages) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.read = false;
   this.id = crypto.randomUUID();
 }
+
+Book.prototype.markRead = function () {
+  this.read = true;
+  displayBooks();
+};
 
 Book.prototype.equals = function (other) {
   if (Object.getPrototypeOf(this) !== Object.getPrototypeOf(other)) {
@@ -58,14 +64,25 @@ function displayBooks() {
     bookAuthor.textContent = book.author;
     let bookPages = document.createElement("p");
     bookPages.textContent = book.pages;
+    let bookRead = document.createElement("p");
+    bookRead.textContent = book.read ? "Read" : "Not read";
+
+    let bookCardButtons = document.createElement("div");
     let bookDeleteBtn = document.createElement("button");
     bookDeleteBtn.classList.add("btn-delete-book");
-    bookDeleteBtn.textContent = "-";
+    bookDeleteBtn.textContent = "Remove";
     bookDeleteBtn.addEventListener("click", function () {
       removeBook(book.id);
     });
+    let bookReadBtn = document.createElement("button");
+    bookReadBtn.classList.add("btn-read-book");
+    bookReadBtn.textContent = "Mark read";
+    bookReadBtn.addEventListener("click", function () {
+      book.markRead();
+    });
+    bookCardButtons.append(bookDeleteBtn, bookReadBtn);
 
-    bookCard.append(bookTitle, bookAuthor, bookPages, bookDeleteBtn);
+    bookCard.append(bookTitle, bookAuthor, bookPages, bookRead, bookCardButtons);
 
     mainElem.appendChild(bookCard);
   });
