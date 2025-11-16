@@ -42,18 +42,29 @@ displayBooks();
 
 let btnNewBookConfirm = document.getElementById("btn-new-book-confirm");
 btnNewBookConfirm.addEventListener("click", (event) => {
-  event.preventDefault(); // Don't submit the fake form
+  // event.preventDefault(); // Don't submit the fake form
 
   const formData = {};
   new FormData(formNewBook).forEach((value, key) => {
     formData[key] = value;
   });
+  let author = document.getElementById("new-book-author");
+  // author.formNoValidate = true;
 
   addBookToLibrary(formData.title, formData.author, formData.pages);
   displayBooks();
   diaNewBook.close();
+  diaNewBook.style.display = "none";
 });
 
 function showModal() {
   diaNewBook.showModal();
+  diaNewBook.style.display = "grid";
 }
+
+// Close modal when clicking anywhere else
+window.onclick = function (event) {
+  if (event.target == diaNewBook) {
+    diaNewBook.style.display = "none";
+  }
+};

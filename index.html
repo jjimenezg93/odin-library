@@ -11,22 +11,34 @@
     <section id="controls">
       <button id="btn-new-book-dia-open" onclick="showModal()">Add book</button>
     </section>
-    <dialog id="dia-new-book">
+    <dialog id="dia-new-book" closedby="any">
       <p>Add new book</p>
       <form method="dialog" id="form-new-book">
+        <label for="new-book-title">Title:</label>
         <input
           type="text"
           name="title"
           id="new-book-title"
           placeholder="To Kill a Mockingbird"
+          required
+          autofocus
         />
+        <label for="new-book-author">Author:</label>
         <input
           type="text"
           name="author"
           id="new-book-author"
           placeholder="Harper Lee"
+          required
         />
-        <input type="text" name="pages" id="new-book-pages" placeholder="323" />
+        <label for="new-book-pages">Pages:</label>
+        <input
+          type="number"
+          name="pages"
+          id="new-book-pages"
+          placeholder="323"
+          required
+        />
         <button id="btn-new-book-confirm">OK</button>
       </form>
     </dialog>

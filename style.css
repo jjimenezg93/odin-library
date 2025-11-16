@@ -77,3 +77,22 @@ dialog {
   /* Use the dialog's center as pivot */
   transform: translate(-50%, -50%);
 }
+
+#dia-new-book {
+  display: none;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 5fr;
+}
+
+#form-new-book > button {
+  margin-top: 20px;
+}
+
+#form-new-book > * {
+  display: block;
+  margin-bottom: 10px;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
